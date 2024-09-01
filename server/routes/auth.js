@@ -2,7 +2,7 @@ import express from "express";
 import { Admin } from "../models/Admin.js"; // Ensure this path is correct
 import { Student } from "../models/Student.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
