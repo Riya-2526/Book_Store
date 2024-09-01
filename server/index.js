@@ -15,18 +15,26 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// CORS Configuration
-const allowedOrigins = [process.env.FRONTEND_URL];
+// Define allowed origins from environment variable
+const allowedOrigins = [
+  process.env.FRONTEND_URL || 'http://localhost:3000', // Fallback to localhost if not defined
+];
+
+console.log("Frontend URL:", process.env.FRONTEND_URL);
+
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
       } else {
-        callback(new Error('Not allowed by CORS'));
+        console.error(`Blocked CORS request from origin: ${origin}`);
+        return callback(new Error('Not allowed by CORS'));
       }
     },
     credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
 
