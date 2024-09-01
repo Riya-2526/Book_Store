@@ -1,0 +1,42 @@
+.hero {
+    display: flex;
+    background-color: #301934; /* Fixed the color code */
+    color: #ffc107;
+    height: 92vh;
+    padding-inline: 30px;
+  }
+  
+  .hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .hero-text {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    word-spacing: 1%;
+  }
+  
+  .hero-description {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin-bottom: 20px;
+  }
+
+   
+  .text-content{
+    margin-bottom: 50px;
+    font-size: 2rem;
+    position: relative;
+  }
+  
+  .hero-image {
+    flex: 1;
+    background: url('Images/home page.png') center; /* Fixed the background property */
+    background-size: 90%; /* Changed to cover to fit the image correctly */
+    background-repeat: no-repeat;
+  }
+  
