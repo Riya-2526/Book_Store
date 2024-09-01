@@ -12,7 +12,7 @@ const router = express.Router();
 router.use(cookieParser());
 
 // CORS Configuration
-router.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+router.use(cors({ origin: 'https://stellular-monstera-aae9cb.netlify.app/', credentials: true }));
 
 // Helper function to generate JWT tokens
 const generateToken = (user, role, secretKey) => {
