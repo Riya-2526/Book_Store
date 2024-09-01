@@ -5,14 +5,22 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const router = express.Router();
 
 // Middleware to parse cookies
 router.use(cookieParser());
 
-// CORS Configuration
-router.use(cors({ origin: 'https://stellular-monstera-aae9cb.netlify.app', credentials: true }));
+// CORS Configuration using environment variables
+router.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
 // Helper function to generate JWT tokens
 const generateToken = (user, role, secretKey) => {
@@ -89,7 +97,7 @@ const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
 
   if (!token) {
-    return res.status(401).json({ message: "No token provided" });
+    return res.status(401).json({ message: "Invalid User" });
   }
 
   verifyToken(token, process.env.Admin_Key, (adminErr, adminDecoded) => {
