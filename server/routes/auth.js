@@ -12,7 +12,7 @@ const router = express.Router();
 router.use(cookieParser());
 
 // CORS Configuration
-router.use(cors({ origin: 'https://stellular-monstera-aae9cb.netlify.app/', credentials: true }));
+router.use(cors({ origin: 'https://stellular-monstera-aae9cb.netlify.app', credentials: true }));
 
 // Helper function to generate JWT tokens
 const generateToken = (user, role, secretKey) => {
@@ -57,7 +57,7 @@ router.post("/login", async (req, res) => {
 
     const token = generateToken(user, role, roleSecretKey);
     // Set secure: true for production use
-    res.cookie("token", token, { httpOnly: true, secure: false, sameSite: 'Strict' });
+    res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'Strict' });
 
     return res.json({ login: true, role });
   } catch (err) {
@@ -89,7 +89,7 @@ const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
 
   if (!token) {
-    return res.status(401).json({ message: "Invalid User" });
+    return res.status(401).json({ message: "No token provided" });
   }
 
   verifyToken(token, process.env.Admin_Key, (adminErr, adminDecoded) => {
